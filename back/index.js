@@ -24,7 +24,6 @@ const createProducts = async () =>{
       price: product.price,
       category: product.category,
     })
-    console.log(producto.title)
   })
   
 }

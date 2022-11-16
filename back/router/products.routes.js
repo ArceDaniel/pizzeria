@@ -8,5 +8,10 @@ productsRouter.get("/", async (req,res)=>{
     })
     res.json(products)
 });
+productsRouter.get("/pizzas", async (req,res)=>{
+    const products = await ProductsSchema.findAll({
+    })
+    res.json(pizzas)
+});
 
 export default productsRouter;
