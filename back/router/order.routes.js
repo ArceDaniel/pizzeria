@@ -5,8 +5,9 @@ import idGen from "../helpers/idgen.js";
 import { SignJWT } from 'jose';
 import dotenv from 'dotenv';
 import userJWTDTO from "../helpers/JWT.js";
+import RecoPedidos from "../controllers/recomendations.js";
 
-dotenv.config({path:'../.env'})
+dotenv.config({path:'../.env'});
 
 const orderRouter = Router();
 
@@ -21,6 +22,7 @@ orderRouter.post("/", async(req, res) => {
       
    const number = idGen();
 
+
   const newOrder =  await OrderModel.create({ 
      order,
      address,
@@ -30,12 +32,14 @@ orderRouter.post("/", async(req, res) => {
      number
      });
 
+  await RecoPedidos();
  
   const url = sendMenssage(newOrder);
 
   const jwtConstructor = new SignJWT({ id: newOrder.number });
   
   const encoder = new TextEncoder();
+
   const jwt = await jwtConstructor
       .setProtectedHeader({
           alg: 'HS256',
@@ -48,20 +52,18 @@ orderRouter.post("/", async(req, res) => {
   return res.status(200).send({ jwt, url });
 });
 
+
 orderRouter.put('/order:id', userJWTDTO, async (req, res) => {
-  console.log(req.params.id);
   const number = req.params.id.substring(1);
- const newOrder = OrderModel.findOne({
-  where:{
-    number
-  }
- })
+  const newOrder = OrderModel.findOne({
+    where:{
+      number
+    }
+ });
 
- if(!newOrder) return res.status(404).send({
-  error:'pedido inexistente'
- })
+ if(!newOrder) return res.status(404).send({error:'Pedido inexistente. Intente de nuevo.'});
 
-  const {
+ const {
     order,
     address,
     phone,
@@ -72,52 +74,39 @@ orderRouter.put('/order:id', userJWTDTO, async (req, res) => {
     newOrder.order = order
     newOrder.address = address
     newOrder.phone = phone
-    newOrder.price = price
+    newOrder.price = price  
     newOrder.comment = comment
-      
-
-  
- newOrder.save();
-  //const url = sendMenssage(newOrder);
-  
+    newOrder.save(); 
   return res.status(200).send('pedido editado exitosamente');
 });
 
 
 
 orderRouter.get('/order:id', userJWTDTO, async (req, res) => {
-
   const number = req.params.id.substring(1);
-
-  console.log(number); 
   const order = await OrderModel.findOne({
     where:{
       number
     }
-   })
- console.log(order)
-  if (!order)
-      return res.status(401).send({ errors: ['no existe ese pedido'] });
+   });
 
-  return res.status(200).json(
-    order
-  );
+  if (!order) return res.status(401).send({ errors: ['No existe ese pedido'] });
+  return res.status(200).json(order);
 });
 
 orderRouter.delete('/order:id', userJWTDTO, async (req, res) => {
   const number = req.params.id.substring(1);
 
-  if(!number) return res.status(404).res('pedido no encontrado')
- 
+  if(!number) return res.status(404).res('Pedido no encontrado.') 
   await OrderModel.destroy({
     where: {
      number
     },
   });
 
-return res
-.status(200)
-.send('Pedido cancelado');
-})
+return res.status(200).send('Pedido cancelado');
+});
+
+
 
 export default orderRouter;
