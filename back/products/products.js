@@ -1,5 +1,7 @@
 // falta organizar los productos
 
+
+
 const products = [
   {
     id: 1,

@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./views/Home";
 import Navbar from "./components/Navbar";
 import Cart from "./components/Cart";
@@ -19,7 +19,7 @@ function App() {
       <Logo/>
       <Navbar />
       <ToastContainer />
-      <BrowserRouter>
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pizzas" element={<Pizzas />} />
@@ -33,7 +33,7 @@ function App() {
           element={<PurchaseConfirmation />}
           />
       </Routes>
-      </BrowserRouter>
+     
     </div>
   );
 }

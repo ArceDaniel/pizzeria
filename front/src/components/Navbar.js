@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { BsCart3 } from "react-icons/bs";
 import styleNav from '../style/navButtons.module.css'
 import styleNavBar from '../style/navBar.module.css'
 

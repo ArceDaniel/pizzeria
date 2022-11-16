@@ -1,0 +1,58 @@
+.footerConteiner{
+    /* Boton/pedido/Activo */
+
+
+/* Auto layout */
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 10px;
+
+
+position: fixed;
+width: 100%;
+height: 10%;
+bottom:15px ;
+
+}
+.footerButton{
+align-items: flex-start;
+padding: 10px 16px;
+gap: 23px;
+
+width: 90%;
+height: 43px;
+
+/* Color Secundario
+
+Color Secundario
+*/
+background: #5171A5;
+border-radius: 30px;
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+
+font-family: 'Lilita One';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 23px;
+/* identical to box height */
+
+text-align: center;
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 1;
+}
