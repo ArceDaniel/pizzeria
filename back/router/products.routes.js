@@ -8,19 +8,14 @@ productsRouter.get("/", async (req,res)=>{
     })
     res.json(products)
 });
-productsRouter.get("/pizzas", async (req,res)=>{
-    const products = await ProductsSchema.findAll({
-    })
-    res.json(pizzas)
-});
-
 
 productsRouter.get("/pizzas", async (req, res)=>{
     const pizzas = await ProductsSchema.findAll({
         where:{
-            category: "pizza"
+            category: "Pizzas"
         }
     })
+    console.log(pizzas)
     res.json(pizzas)
 });
 
@@ -28,7 +23,7 @@ productsRouter.get("/pizzas", async (req, res)=>{
 productsRouter.get("/postres", async (req, res)=>{
     const postres = await ProductsSchema.findAll({
         where:{
-            category: "postres"
+            category: "Postres"
         }
     })
     res.json(postres)
@@ -38,16 +33,16 @@ productsRouter.get("/postres", async (req, res)=>{
 productsRouter.get("/bebidas", async (req, res)=>{
     const bebidas = await ProductsSchema.findAll({
         where:{
-            category: "bebidas"
+            category: "Bebidas"
         }
     })
     res.json(bebidas)
 });
 
 productsRouter.get("/empanadas", async (req, res)=>{
-    const postres = await ProductsSchema.findAll({
+    const empanadas = await ProductsSchema.findAll({
         where:{
-            category: "empanadas"
+            category: "Empanadas"
         }
     })
     res.json(empanadas)

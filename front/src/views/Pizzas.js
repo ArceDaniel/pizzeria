@@ -1,60 +1,38 @@
-import React from "react";
-import { addToCart } from "../features/cartSlice";
-import { useGetAllProductsQuery } from "../features/productsApi";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React,{useEffect, useState} from "react";
+import { pizzasApi } from "../features/products.js";
+import Products2 from "../components/products2";
+import Style from '../style/navBar.module.css';
+import Footer from "../components/footer.js";
+import Navbar from "../components/Navbar.js";
+import Loader from "../components/loader.js";
+
 
 const Pizzas = () => {
-  const { data, error, isLoading } = useGetAllProductsQuery();
+  const [pizzasState, setPizzas] = useState(null);
+  useEffect(()=>{
+   pizzasApi(setPizzas);
+ },[])
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+ 
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
-    navigate("/carrito");
-  };
-
+  // const handleAddToCart = (product) => {
+  //   dispatch(addToCart(product));
+  // };
+  // onClick={() => handleAddToCart(product)
   return (
-    <div className="container">
-      {isLoading ? (
-        <h1 className="text-center mt-5 text-success">Loading...</h1>
-      ) : error ? (
-        <h2 className="text-center mt-5 text-danger">Ocurrió un error</h2>
-      ) : (
-        <>
-          <h4 className="text-info mt-4 text-center">Pizzas</h4>
-          <div className="d-flex justify-content-center align-items-center">
-            <div className="row">
-              {data?.map((product) => {
-                if (product.category === "Pizzas") {
-                  return (
-                    <div className="col-md-4 mt-4" key={product.id}>
-                      <div className="d-flex flex-column justify-content-center align-items-center">
-                        <img
-                          src={product.imgUrl}
-                          alt={product.title}
-                          className="w-50 rounded"
-                        />
-                        <div className="text-info mt-1">{product.title}</div>
-                        <div className="text-white">{product.description}</div>
-                        <div className="text-warning">$ {product.price}</div>
-                        <button
-                          className="btn btn-outline-primary mt-2"
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          Agregar
-                        </button>
-                      </div>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          </div>
-        </>
+    <>
+       <Navbar />
+   <div>
+     <h2 className={Style.categorias}>Pizzas</h2>
+    {pizzasState!==null?(
+      pizzasState.map(producto => <Products2 product={producto}  key={producto.id}/>)
+      ):(
+        <Loader />
       )}
-    </div>
+   </div>
+    <Footer/>
+    </>
   );
 };
 

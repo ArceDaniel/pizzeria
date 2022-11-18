@@ -1,11 +1,13 @@
 import React from "react";
 import Style from '../style/logo.module.css'
-export default function Logo(){
+import { useNavigate } from "react-router-dom";
 
+export default function Logo(){
+    const navigate = useNavigate();
 return(
     <>
+    <button className={Style.buttonHome}  onClick={() =>  navigate("/")}/>
     <div className={Style.logo}></div>
-    <h2 className={Style.categorias}>categorias</h2>
     </>
 )
 

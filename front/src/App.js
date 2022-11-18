@@ -1,8 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./views/Home";
-import Navbar from "./components/Navbar";
-import Cart from "./components/Cart";
 import Pizzas from "./views/Pizzas";
 import Empanadas from "./views/Empanadas";
 import Bebidas from "./views/Bebidas";
@@ -12,12 +10,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Checkout from "./views/Checkout";
 import Logo from "./components/header";
+import Carrito from "./views/carrito";
 
 function App() {
   return (
     <div >
       <Logo/>
-      <Navbar />
       <ToastContainer />
 
       <Routes>
@@ -26,7 +24,7 @@ function App() {
         <Route path="/empanadas" element={<Empanadas />} />
         <Route path="/bebidas" element={<Bebidas />} />
         <Route path="/postres" element={<Postres />} />
-        <Route path="/carrito" element={<Cart />} />
+        <Route path="/carrito" element={<Carrito/>} />
         <Route path="/checkout" element={<Checkout/>} />
         <Route
           path="/confirmacion-de-compra"

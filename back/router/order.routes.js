@@ -49,7 +49,6 @@ orderRouter.post("/", async(req, res) => {
 });
 
 orderRouter.put('/order:id', userJWTDTO, async (req, res) => {
-  console.log(req.params.id);
   const number = req.params.id.substring(1);
  const newOrder = OrderModel.findOne({
   where:{

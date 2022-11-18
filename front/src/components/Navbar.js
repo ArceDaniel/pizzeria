@@ -1,57 +1,45 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import styleNav from '../style/navButtons.module.css'
 import styleNavBar from '../style/navBar.module.css'
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const { cartTotalQuantity } = useSelector((state) => state.cart);
-
-  const [btnTap, setbtnTap] = useState(0);
-
-  const handleBtnChange = (btnItem) => {
-    if (btnTap !== btnItem) {
-      setbtnTap(btnItem);
-    }
-  };
-
+  
+  const navigate = useNavigate();
   return (
     <div>
+       <h2 className={styleNavBar.categorias}>categorias</h2>
       <nav className={styleNavBar.nav}>
-          <Link
-            to="/pizzas"
+          <button
             className={styleNav.buttonNavPizza}
-            onClick={() => handleBtnChange(3)}
+            onClick={() =>  navigate("/pizzas")}
           >
-           <span> pizzas</span>
-          </Link>
+           <span className={styleNav.title}> pizzas</span>
+          </button>
      
      
-          <Link
-            to="/empanadas"
+          <button
            className={styleNav.buttonNavEmpanada}
-           onClick={() => handleBtnChange(4)}
+           onClick={() =>  navigate("/empanadas")}
           >
            <span> Empanadas</span>
-          </Link>
+          </button>
      
        
-          <Link
-            to="/bebidas"
+          <button
             className={styleNav.buttonNavBebidas}
-            onClick={() => handleBtnChange(5)}
+            onClick={() =>  navigate("/bebidas")}
             >
            <span> Bebidas</span>
-          </Link>
+          </button>
   
        
-          <Link
-            to="/postres"
+          <button
             className={styleNav.buttonNavPostre}
-            onClick={() => handleBtnChange(6)}
+            onClick={() =>  navigate("/postres")}
             >
              <span>Postres</span>
-          </Link>
+          </button>
       
           </nav>
     </div>
