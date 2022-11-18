@@ -2,6 +2,7 @@ import React from "react";
 import style from '../style/loader.module.css'
 const Loader = () =>{
     return(
+
 <div className={style.spinner}>
   <span>L</span>
   <span>O</span>
@@ -11,6 +12,7 @@ const Loader = () =>{
   <span>N</span>
   <span>G</span>
 </div>
+
     )
 }
 

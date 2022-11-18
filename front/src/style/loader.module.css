@@ -1,3 +1,4 @@
+
 .spinner {
     height: 10%;
     width: 80%;
@@ -10,10 +11,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    left: 7%;
-    right: 7%;
-    top:70%;
+    position:sticky;
+    left: 20px;
+    margin-left: 10%;
+    top:80%;
    }
    
    .spinner span {
