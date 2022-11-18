@@ -26,13 +26,13 @@ const ProductsSchema = sequelize.define(
       type: DataTypes.INTEGER,
     require:true
     },
-  price:{
-      type: DataTypes.STRING,
-    require:true
-    },
   imgUrl:{
       type: DataTypes.STRING,
     require:true
+    },
+    cantPedidos:{
+      type: DataTypes.INTEGER,
+    require:false
     }
 },{
  timestamps:true
