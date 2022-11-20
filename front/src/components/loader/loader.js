@@ -1,5 +1,5 @@
 import React from "react";
-import style from '../style/loader.module.css'
+import style from './loader.module.css'
 const Loader = () =>{
     return(
 <div className={style.spinner}>
