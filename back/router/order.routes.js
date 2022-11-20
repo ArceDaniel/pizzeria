@@ -21,10 +21,12 @@ orderRouter.post("/", async(req, res) => {
       } = req.body;
       
    const number = idGen();
+   await RecoPedidos();
+   const StrOrder = order.toString();
 
 
   const newOrder =  await OrderModel.create({ 
-     order,
+     order:StrOrder,
      address,
      phone,
      price,
@@ -32,7 +34,7 @@ orderRouter.post("/", async(req, res) => {
      number
      });
 
-  await RecoPedidos();
+
  
   const url = sendMenssage(newOrder);
 
