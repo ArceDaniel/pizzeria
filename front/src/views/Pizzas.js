@@ -1,37 +1,31 @@
 import React,{useEffect, useState} from "react";
 import { pizzasApi } from "../features/products.js";
-import Products2 from "../components/products2";
-import Style from '../style/navBar.module.css';
-import Footer from "../components/footer.js";
-import Navbar from "../components/Navbar.js";
-import Loader from "../components/loader.js";
+import Products2 from "../components/product2/products2";
+import style from './index.module.css';
+import Footer from "../components/footer/footer.js";
+import Navbar from "../components/navBar/Navbar.js";
+import Loader from "../components/loader/loader.js";
+import { useNavigate } from "react-router-dom";
 
 
-const Pizzas = () => {
+const Pizzas = ({addProduct, totalPrice}) => {
+  const navigate = useNavigate();
   const [pizzasState, setPizzas] = useState(null);
   useEffect(()=>{
    pizzasApi(setPizzas);
  },[])
-
-  // const dispatch = useDispatch();
- 
-
-  // const handleAddToCart = (product) => {
-  //   dispatch(addToCart(product));
-  // };
-  // onClick={() => handleAddToCart(product)
   return (
     <>
        <Navbar />
    <div>
-     <h2 className={Style.categorias}>Pizzas</h2>
+     <h2 className={style.categorias}>Pizzas</h2>
     {pizzasState!==null?(
-      pizzasState.map(producto => <Products2 product={producto}  key={producto.id}/>)
+      pizzasState.map(producto => <Products2 product={producto} addProduct={addProduct}  key={producto.id}/>)
       ):(
         <Loader />
       )}
    </div>
-    <Footer/>
+   <Footer totalPrice={totalPrice} to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
     </>
   );
 };

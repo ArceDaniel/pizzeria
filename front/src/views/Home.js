@@ -1,22 +1,15 @@
 import React, {useEffect, useState} from "react";
-import Footer from "../components/footer.js";
-import Loader from "../components/loader.js";
-import Navbar from "../components/Navbar.js";
-import Products from "../components/product";
+import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer/footer.js";
+import Loader from "../components/loader/loader.js";
+import Navbar from "../components/navBar/Navbar.js";
+import Products from "../components/product1/product";
 import { recommended } from "../features/products";
-import Style from '../style/navBar.module.css'
-import StyleConteiner from '../style/products.module.css'
-import { useDispatch } from "react-redux";
-import { addToCart } from "../features/cartSlice";
+import style from './index.module.css'
 
-const Home =  () => {
-  
-  const dispatch = useDispatch();
-  
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
-  };
-  
+
+const Home = ({addProduct, totalPrice}) => {
+  const navigate = useNavigate();
   const [productos, setPoductos] = useState(null);
    useEffect(()=>{
     recommended(setPoductos);
@@ -25,16 +18,16 @@ const Home =  () => {
     <>
        <Navbar />
     <div>
-      <h2 className={Style.categorias}>Recomendaciones</h2>
+      <h2 className={style.categorias}>Recomendaciones</h2>
     </div>
-    <div className={StyleConteiner.conteiner}>
+    <div className={style.conteiner}>
     {productos!==null?(
-      productos.map(producto => <Products product={producto} click={handleAddToCart}  key={producto.id}/>)
+      productos.map(producto => <Products product={producto} addProduct={addProduct} key={producto.id}/>)
       ):(
         <Loader />
       )}
     </div>
-    <Footer/>
+    <Footer totalPrice={totalPrice} to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
 
     </>
   );

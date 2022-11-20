@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import styleNav from '../style/navButtons.module.css'
-import styleNavBar from '../style/navBar.module.css'
+import React from "react";
+import style from './index.module.css'
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -8,18 +7,18 @@ const Navbar = () => {
   const navigate = useNavigate();
   return (
     <div>
-       <h2 className={styleNavBar.categorias}>categorias</h2>
-      <nav className={styleNavBar.nav}>
+       <h2 className={style.categorias}>categorias</h2>
+      <nav className={style.nav}>
           <button
-            className={styleNav.buttonNavPizza}
+            className={style.buttonNavPizza}
             onClick={() =>  navigate("/pizzas")}
           >
-           <span className={styleNav.title}> pizzas</span>
+           <span className={style.title}> pizzas</span>
           </button>
      
      
           <button
-           className={styleNav.buttonNavEmpanada}
+           className={style.buttonNavEmpanada}
            onClick={() =>  navigate("/empanadas")}
           >
            <span> Empanadas</span>
@@ -27,7 +26,7 @@ const Navbar = () => {
      
        
           <button
-            className={styleNav.buttonNavBebidas}
+            className={style.buttonNavBebidas}
             onClick={() =>  navigate("/bebidas")}
             >
            <span> Bebidas</span>
@@ -35,7 +34,7 @@ const Navbar = () => {
   
        
           <button
-            className={styleNav.buttonNavPostre}
+            className={style.buttonNavPostre}
             onClick={() =>  navigate("/postres")}
             >
              <span>Postres</span>
