@@ -1,60 +1,35 @@
-import React from "react";
-import { addToCart } from "../features/cartSlice";
-import { useGetAllProductsQuery } from "../features/productsApi";
-import { useDispatch } from "react-redux";
+import React,{useEffect, useState} from "react";
+import { empanadasApi } from "../features/products.js";
+import Products2 from "../components/product2/products2";
+import Footer from "../components/footer/footer.js";
+import Navbar from "../components/navBar/Navbar.js";
+import Loader from "../components/loader/loader.js";
+import style from './index.module.css'
 import { useNavigate } from "react-router-dom";
 
-const Empanadas = () => {
-  const { data, error, isLoading } = useGetAllProductsQuery();
-
-  const dispatch = useDispatch();
+const Empanadas = ({addProduct, totalPrice}) => {
   const navigate = useNavigate();
-
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
-    navigate("/carrito");
-  };
+  const [empanadasState, setEmpanadas] = useState(null);
+  useEffect(()=>{
+   empanadasApi(setEmpanadas);
+ },[])
 
   return (
-    <div className="container">
-      {isLoading ? (
-        <h1 className="text-center mt-5 text-success">Loading...</h1>
-      ) : error ? (
-        <h2 className="text-center mt-5 text-danger">Ocurrió un error</h2>
-      ) : (
-        <>
-          <h4 className="text-info mt-4 text-center">Empanadas</h4>
-          <div className="d-flex justify-content-center align-items-center">
-            <div className="row">
-              {data?.map((product) => {
-                if (product.category === "Empanadas") {
-                  return (
-                    <div className="col-md-4 mt-4" key={product.id}>
-                      <div className="d-flex flex-column justify-content-center align-items-center">
-                        <img
-                          src={product.imgUrl}
-                          alt={product.title}
-                          className="w-50 rounded"
-                        />
-                        <div className="text-info mt-1">{product.title}</div>
-                        <div className="text-white">{product.description}</div>
-                        <div className="text-warning">$ {product.price}</div>
-                        <button
-                          className="btn btn-outline-primary mt-2"
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          Agregar
-                        </button>
-                      </div>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          </div>
-        </>
-      )}
-    </div>
+    <>
+       <Navbar />
+   <div>
+     <h2 className={style.categorias}>Empanadas</h2>
+     <div className={style.conteiner2}>
+
+    {empanadasState!==null?(
+      empanadasState.map(producto => <Products2 product={producto} addProduct={addProduct} key={producto.id}/>)
+      ):(
+        <Loader />
+        )}
+   </div>
+  </div>
+  <Footer totalPrice={totalPrice} to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
+    </>
   );
 };
 

@@ -1,26 +1,33 @@
 import React, {useEffect, useState} from "react";
-import Footer from "../components/footer.js";
-import Products from "../components/product";
+import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer/footer.js";
+import Loader from "../components/loader/loader.js";
+import Navbar from "../components/navBar/Navbar.js";
+import Products from "../components/product1/product";
 import { recommended } from "../features/products";
-import Style from '../style/logo.module.css'
-import StyleConteiner from '../style/products.module.css'
-const Home =  () => {
+import style from './index.module.css'
+
+
+const Home = ({addProduct, totalPrice}) => {
+  const navigate = useNavigate();
   const [productos, setPoductos] = useState(null);
    useEffect(()=>{
     recommended(setPoductos);
   },[])
   return (
     <>
+       <Navbar />
     <div>
-      <h2 className={Style.categorias}>Recomendaciones</h2>
+      <h2 className={style.categorias}>Recomendaciones</h2>
     </div>
-    <div className={StyleConteiner.conteiner}>
+    <div className={style.conteiner}>
     {productos!==null?(
-      productos.map(producto => <Products product={producto}/>)
-      ):('loding')}
+      productos.map(producto => <Products product={producto} addProduct={addProduct} key={producto.id}/>)
+      ):(
+        <Loader />
+      )}
     </div>
- 
-    <Footer/>
+    <Footer totalPrice={totalPrice} to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
 
     </>
   );

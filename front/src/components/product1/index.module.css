@@ -5,9 +5,6 @@
     margin: 20px;
     justify-items: center;
 }
-
-
-
 .conteinerProducts{
     display: flex;
     flex-direction: column;
@@ -29,6 +26,8 @@
 .imgProduct{
 width: 160px;
 height: 120px;
+border-radius: 10px;
+
 
 
 /* Inside auto layout */
@@ -60,6 +59,7 @@ flex: none;
 order: 0;
 flex-grow: 0;
 }
+
 .priceProduct{
     
 width: 118px;
@@ -90,11 +90,11 @@ left: 120px;
 bottom:28px;
 width: 30px;
 height: 30px;
-background-image: url('../img/mas.png');
+background-image: url('../../img/mas.png');
 background-repeat: no-repeat;
 background-position: center;
-background-size: 80%;
 border: none;
+background-size: 100%;
 /* Color Secundario
 
 Color Secundario

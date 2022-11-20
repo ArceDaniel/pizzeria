@@ -21,6 +21,8 @@ bottom:15px ;
 align-items: flex-start;
 padding: 10px 16px;
 gap: 23px;
+border-bottom: none;
+border: 0.5px solid #5171A5;
 
 width: 90%;
 height: 43px;
@@ -41,7 +43,7 @@ flex-grow: 0;
 font-family: 'Lilita One';
 font-style: normal;
 font-weight: 400;
-font-size: 20px;
+font-size: 25px;
 line-height: 23px;
 /* identical to box height */
 
