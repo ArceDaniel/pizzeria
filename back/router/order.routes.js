@@ -32,7 +32,7 @@ orderRouter.post("/", async(req, res) => {
      number
      });
 
-  await RecoPedidos();
+  //await RecoPedidos();
  
   const url = sendMenssage(newOrder);
 
