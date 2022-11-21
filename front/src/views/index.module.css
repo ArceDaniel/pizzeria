@@ -15,10 +15,10 @@
     /* Color Secundario */
     
     color: #5171A5;
-    }
-    .conteiner{
+}
+.conteiner{
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
         justify-items: center;
-    }
+}
  

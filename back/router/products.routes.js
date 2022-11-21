@@ -1,6 +1,7 @@
 import { Router } from "express";
 import ProductsSchema from "../schemas/productsSchema.js";
 //import products from '../products/products.js'
+import prodEval from "../helpers/EvaluacionProd.js";
 const productsRouter = Router();
 
 productsRouter.get("/", async (req,res)=>{
@@ -9,13 +10,9 @@ productsRouter.get("/", async (req,res)=>{
     res.json(products)
 });
 
-productsRouter.get("/pizzas", async (req, res)=>{
-    const pizzas = await ProductsSchema.findAll({
-        where:{
-            category: "Pizzas"
-        }
+productsRouter.get("/pizzas", async (req,res)=>{
+    const products = await ProductsSchema.findAll({
     })
-    console.log(pizzas)
     res.json(pizzas)
 });
 
@@ -47,5 +44,14 @@ productsRouter.get("/empanadas", async (req, res)=>{
     })
     res.json(empanadas)
 });
+
+productsRouter.get("/recomendados", async(req, res)=> {
+
+    const productos = await ProductsSchema.findAll({
+ 
+    })
+    recomendados = await prodEval(productos);
+    res.json(recomendados)
+})
 
 export default productsRouter;
