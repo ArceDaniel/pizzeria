@@ -50,7 +50,7 @@ productsRouter.get("/recomendados", async(req, res)=> {
     const productos = await ProductsSchema.findAll({
  
     })
-    recomendados = await prodEval(productos);
+   const recomendados = await prodEval(productos);
     res.json(recomendados)
 })
 

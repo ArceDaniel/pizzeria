@@ -14,7 +14,9 @@ const RecoPedidos = async (pedidos)=>{
             }
      
         })
-    product.cantPedidos += cantidad; 
+    product.cantPedidos= product.cantPedidos + parseInt(cantidad); 
+    await product.save();
+    console.log(product.cantPedidos)
     
 
 })};

@@ -25,6 +25,7 @@ const createProducts = async () =>{
       title: product.title,
       price: product.price,
       category: product.category,
+      cantPedidos: 0
     })
   })
   
