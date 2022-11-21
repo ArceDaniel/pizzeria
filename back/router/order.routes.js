@@ -6,6 +6,7 @@ import { SignJWT } from 'jose';
 import dotenv from 'dotenv';
 import userJWTDTO from "../helpers/JWT.js";
 import RecoPedidos from "../controllers/recomendations.js";
+import ipModel from "../schemas/ipuserSchema.js";
 
 dotenv.config({path:'../.env'});
 
@@ -17,11 +18,28 @@ orderRouter.post("/", async(req, res) => {
     address,
     phone,
     price,
-    comment
-      } = req.body;
+    comment,
+    clientIp
+  } = req.body;
+  
+  const Clients = await ipModel.findOne({
+    where:{
+      ip:clientIp
+    }
+  })
+
+  if(!Clients){
+    const newClient = await ipModel.create({
+      ip: clientIp,
+    })
+    
+    console.log(newClient)
+  }
+  
+  console.log(Clients)
       
    const number = idGen();
-   await RecoPedidos();
+   await RecoPedidos(order);
    const StrOrder = order.toString();
 
 
@@ -31,9 +49,11 @@ orderRouter.post("/", async(req, res) => {
      phone,
      price,
      comment,
-     number
+     number,
+     clientIp
      });
 
+    
 
  
   const url = sendMenssage(newOrder);
@@ -79,7 +99,7 @@ orderRouter.put('/order:id', userJWTDTO, async (req, res) => {
     newOrder.price = price  
     newOrder.comment = comment
     newOrder.save(); 
-  return res.status(200).send('pedido editado exitosamente');
+  return res.status(200).send({error:'Pedido editado exitosamente'});
 });
 
 
@@ -92,23 +112,32 @@ orderRouter.get('/order:id', userJWTDTO, async (req, res) => {
     }
    });
 
-  if (!order) return res.status(401).send({ errors: ['No existe ese pedido'] });
+  if (!order) return res.status(401).send({error:'No existe ese pedido'});
   return res.status(200).json(order);
 });
 
 orderRouter.delete('/order:id', userJWTDTO, async (req, res) => {
   const number = req.params.id.substring(1);
 
-  if(!number) return res.status(404).res('Pedido no encontrado.') 
+  if(!number) return res.status(404).res({error:'Pedido no encontrado.'}); 
   await OrderModel.destroy({
     where: {
      number
     },
   });
 
-return res.status(200).send('Pedido cancelado');
+return res.status(200).send({error:'Pedido cancelado'});
 });
 
+orderRouter.get('/historyOrder/:id', async (req, res) => {
+  const {id} = req.params;
+  const clientHistory = await ipModel.findOne({
+    where:{
+      id
+    }
 
+  })
+  return res.json(clientHistory);
+} )
 
 export default orderRouter;

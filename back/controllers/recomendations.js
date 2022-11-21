@@ -5,8 +5,7 @@ const RecoPedidos = async (pedidos)=>{
 
     pedidos.forEach(async element => {
     const pedidoData = element.split('-');
-    if (typeof parseInt(element.charAt(0)) == 'number'){
-
+    
         const cantidad = pedidoData[0];
         const title = pedidoData[1];
         const product = await ProductsSchema.findOne({
@@ -16,7 +15,7 @@ const RecoPedidos = async (pedidos)=>{
      
         })
     product.cantPedidos += cantidad; 
-    }
+    
 
 })};
 

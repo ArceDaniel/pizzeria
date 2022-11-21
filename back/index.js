@@ -13,7 +13,9 @@ async function bootstrap() {
     console.log(`Servidor escuchando en el puerto ${process.env.PORT}`);
     createProducts();
   });
+console.clear();
 }
+
 bootstrap();
 
 const createProducts = async () =>{
