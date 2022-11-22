@@ -11,7 +11,10 @@ productsRouter.get("/", async (req,res)=>{
 });
 
 productsRouter.get("/pizzas", async (req,res)=>{
-    const products = await ProductsSchema.findAll({
+    const pizzas = await ProductsSchema.findAll({
+        where:{
+            category: "Pizzas"
+        }
     })
     res.json(pizzas)
 });

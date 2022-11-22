@@ -1,14 +1,17 @@
 import React from "react";
 import style from './index.module.css'
+import { useSelector } from "react-redux";
 
-const Footer = ({to, text, totalPrice})=>{
+const Footer = ({to, text})=>{
+    const cart = useSelector((state) => state.cart);
     return(
 
         <div className={style.footerConteiner}>
     <button className={style.footerButton}
+    type='submit'
      onClick={to}>
-       { totalPrice?
-      ( <span  className={style.footerButton}>${totalPrice}</span>):null
+       {cart.cartTotalAmount?
+      ( <span  className={style.footerButton}>${cart.cartTotalAmount}</span>):null
     }
         {text}</button>
     </div>

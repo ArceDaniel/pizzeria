@@ -8,12 +8,16 @@ import { recommended } from "../features/products";
 import style from './index.module.css'
 
 
-const Home = ({addProduct, totalPrice}) => {
+
+
+const Home = () => {
   const navigate = useNavigate();
+  
   const [productos, setPoductos] = useState(null);
    useEffect(()=>{
     recommended(setPoductos);
   },[])
+ 
   return (
     <>
        <Navbar />
@@ -22,12 +26,12 @@ const Home = ({addProduct, totalPrice}) => {
     </div>
     <div className={style.conteiner}>
     {productos!==null?(
-      productos.map(producto => <Products product={producto} addProduct={addProduct} key={producto.id}/>)
+      productos.map(producto => <Products product={producto} key={producto.id}/>)
       ):(
         <Loader />
       )}
     </div>
-    <Footer totalPrice={totalPrice} to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
+    <Footer to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
 
     </>
   );
