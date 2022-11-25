@@ -4,8 +4,10 @@ import dotenv from 'dotenv';
 dotenv.config({path:'../.env'});
 
 const userJWTDTO = async (req, res, next) => {
-    
+    console.log(req.headers)
+
     const { authorization } = req.headers;
+    console.log(authorization)
 
     if (!authorization)
         return res.status(401).send({ errors: {name:'Usuario no autorizado'} });

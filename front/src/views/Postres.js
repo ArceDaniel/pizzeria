@@ -7,7 +7,7 @@ import Navbar from "../components/navBar/Navbar.js";
 import Loader from "../components/loader/loader.js";
 import { useNavigate } from "react-router-dom";
 
-const Postres = ({addProduct, totalPrice}) => {
+const Postres = () => {
   const navigate = useNavigate();
   const [postresState, setPostre] = useState(null);
   useEffect(()=>{
@@ -16,16 +16,16 @@ const Postres = ({addProduct, totalPrice}) => {
 
   return (
      <>
-        <Navbar />
+        <Navbar category='Postres' />
    <div>
      <h2 className={style.categorias}>Postres</h2>
     {postresState!==null?(
-      postresState.map(producto => <Products2 addProduct={addProduct} product={producto} key={producto.id}/>)
+      postresState.map(producto =>  <Products2 product={producto} key={producto.id}/>)
       ):(
         <Loader />
       )}
    </div>
-   <Footer totalPrice={totalPrice} to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
+   <Footer to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
     </>
   );
 };

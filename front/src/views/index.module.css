@@ -70,3 +70,10 @@ Color Secundario
 border: 2px solid #5171A5;
 border-radius: 10px;
 }
+.lista{
+border-radius: 20px;
+display: block;
+margin: 5%;
+margin-bottom:0.5em;
+margin-top:0.5em;
+}

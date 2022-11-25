@@ -11,16 +11,24 @@ const cartSlice = createSlice({
     initialState,
     reducers:{
     addToCart(state, action) {
-        const itemIndex = state.cartItems.findIndex(
-            (item) => item.id === action.payload.id
-          );
-          if (itemIndex >= 0) {
-            state.cartItems[itemIndex].cartQuantity += 1;
-          } else {
-            const tempProduct = { ...action.payload, cartQuantity: 1 };
-            state.cartItems.push(tempProduct);
-          }
+      const itemIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id
+        );
+      if (itemIndex < 0) {
+        const tempProduct = { ...action.payload, cartQuantity: 1 };
+          state.cartItems.push(tempProduct);
           state.cartTotalAmount += action.payload.price
+        } else {
+
+          if((state.cartItems[itemIndex].category === 'Empanadas' && state.cartItems[itemIndex].cartQuantity <= 24 )||
+          (state.cartItems[itemIndex].category === 'Postres' && state.cartItems[itemIndex].cartQuantity <= 20 )||
+          (state.cartItems[itemIndex].category === 'Pizzas' && state.cartItems[itemIndex].cartQuantity <= 6) ||
+          (state.cartItems[itemIndex].category === 'Bebidas' && state.cartItems[itemIndex].cartQuantity < 8)
+          ){
+          state.cartItems[itemIndex].cartQuantity += 1;
+          state.cartTotalAmount += action.payload.price
+          }
+        }
     },
     removeFromCart(state, action) {
         const nextCartItems = state.cartItems.filter(

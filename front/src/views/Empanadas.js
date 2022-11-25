@@ -7,7 +7,7 @@ import Loader from "../components/loader/loader.js";
 import style from './index.module.css'
 import { useNavigate } from "react-router-dom";
 
-const Empanadas = ({addProduct, totalPrice}) => {
+const Empanadas = () => {
   const navigate = useNavigate();
   const [empanadasState, setEmpanadas] = useState(null);
   useEffect(()=>{
@@ -16,19 +16,19 @@ const Empanadas = ({addProduct, totalPrice}) => {
 
   return (
     <>
-       <Navbar />
+       <Navbar category='Empanadas' />
    <div>
      <h2 className={style.categorias}>Empanadas</h2>
      <div className={style.conteiner2}>
 
     {empanadasState!==null?(
-      empanadasState.map(producto => <Products2 product={producto} addProduct={addProduct} key={producto.id}/>)
+      empanadasState.map(producto =>  <Products2 product={producto} key={producto.id}/>)
       ):(
         <Loader />
         )}
    </div>
   </div>
-  <Footer totalPrice={totalPrice} to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
+  <Footer to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
     </>
   );
 };

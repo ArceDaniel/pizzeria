@@ -7,7 +7,7 @@ import Loader from "../components/loader/loader.js";
 import style from './index.module.css'
 import { useNavigate } from "react-router-dom";
 
-const Bebidas = ({addProduct, totalPrice}) => {
+const Bebidas = () => {
   const navigate = useNavigate();
   const [bebidasState, setBebidas] = useState(null);
   useEffect(()=>{
@@ -15,15 +15,15 @@ const Bebidas = ({addProduct, totalPrice}) => {
  },[])
   return (
     <>
-       <Navbar />
+       <Navbar category='Bebidas'/>
    <div>
      <h2 className={style.categorias}>Bebidas</h2>
     {bebidasState!==null?(
-      bebidasState.map(producto => <Products2 product={producto} addProduct={addProduct} key={producto.id}/>)
+      bebidasState.map(producto =>  <Products2 product={producto} key={producto.id}/>)
       ):(
         <Loader />
         )}
-    <Footer totalPrice={totalPrice} to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
+    <Footer to = {() =>  navigate("/carrito")} text={'Ver mi pedido'} />
    </div>
     </>
   );

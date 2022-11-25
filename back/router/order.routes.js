@@ -7,11 +7,11 @@ import dotenv from 'dotenv';
 import userJWTDTO from "../helpers/JWT.js";
 import RecoPedidos from "../controllers/recomendations.js";
 import ipModel from "../schemas/ipuserSchema.js";
+import ProductsSchema from "../schemas/productsSchema.js";
 
 dotenv.config({path:'../.env'});
 
 const orderRouter = Router();
-
 orderRouter.post("/", async(req, res) => {
   const {
     order,
@@ -21,7 +21,8 @@ orderRouter.post("/", async(req, res) => {
     comment,
     clientIp
   } = req.body;
-  
+
+
   const Clients = await ipModel.findOne({
     where:{
       ip:clientIp
@@ -29,18 +30,16 @@ orderRouter.post("/", async(req, res) => {
   })
 
   if(!Clients){
-    const newClient = await ipModel.create({
+  await ipModel.create({
       ip: clientIp,
     })
-    
-    console.log(newClient)
   }
   
-  console.log(Clients)
       
    const number = idGen();
-   await RecoPedidos(order);
-   const StrOrder = order.toString();
+   const arryOrder = order.map(e => `${e.cartQuantity}-${e.title}`);
+   await RecoPedidos(arryOrder);
+   const StrOrder = arryOrder.toString()
 
 
   const newOrder =  await OrderModel.create({ 
@@ -75,8 +74,8 @@ orderRouter.post("/", async(req, res) => {
 });
 
 
-orderRouter.put('/order:id', userJWTDTO, async (req, res) => {
-  const number = req.params.id.substring(1);
+orderRouter.put('/order:id', async (req, res) => {
+  const number = req.params.id;
   const newOrder = OrderModel.findOne({
     where:{
       number
@@ -104,17 +103,37 @@ orderRouter.put('/order:id', userJWTDTO, async (req, res) => {
 
 
 
-orderRouter.get('/order:id', userJWTDTO, async (req, res) => {
-  const number = req.params.id.substring(1);
+orderRouter.get('/order/:id', async (req, res) => {
+  const number = req.params.id;
   const order = await OrderModel.findOne({
     where:{
       number
     }
    });
-
   if (!order) return res.status(401).send({error:'No existe ese pedido'});
+   
+   order.order = order.order.split(',');
+
+     const aux = []
+    await order.order.forEach( async e =>{
+    const pedidoData = e.split('-');
+   const product = await ProductsSchema.findOne({
+    where:{
+      title: pedidoData[1]
+    }
+  }) 
+   console.log(product);
+   aux.push({ ...product, cartQuantity : pedidoData[0]})
+   }).then(e=> console.log)
+
+   order.order = aux;
+
   return res.status(200).json(order);
 });
+
+
+
+
 
 orderRouter.delete('/order:id', userJWTDTO, async (req, res) => {
   const number = req.params.id.substring(1);
