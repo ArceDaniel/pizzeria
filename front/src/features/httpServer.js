@@ -1,5 +1,5 @@
 export const helpHttp = () => {
-    const serverApi = "http://localhost:5000/";
+    const serverApi = process.env.REACT_APP_BACKEND_URL;
     
     const customFetch = async (endpoint, options) => {
 
